@@ -3,7 +3,7 @@ import Todo from '../Todo/Todo.component'
 
 class TodoList extends React.Component {
     state = {
-        tasks: [
+        todos: [
             {
                 id: 1,
                 name: "finish this shit",
@@ -25,12 +25,22 @@ class TodoList extends React.Component {
         ]
     };
 
+    removeTodo = (id) => {
+        const incomplete = this.state.todos.filter(todo => todo.id !== id);
+        this.setState({todos: incomplete})
+    }
     render() {
         return (
-            <div>
-                {this.state.tasks.map(({id, ...task})=> <Todo key={id} {...task}/>)}
+            <div className="w-1/3 flex flex-wrap align-middle">
+                {this.state.todos.map(todo => (
+                    <Todo
+                        key={todo.id}
+                        todo={todo}
+                        handleClick={this.removeTodo}
+                    />
+                ))}
             </div>
-        );
+        )
     }
 }
 

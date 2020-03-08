@@ -13,3 +13,8 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  color: #718096;
+  font-family: 'Arsenal', sans-serif;
+}
