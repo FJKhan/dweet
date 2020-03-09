@@ -25,9 +25,9 @@ class TodoList extends React.Component {
         ]
     };
 
-    removeTodo = (id) => {
-        const incomplete = this.state.todos.filter(todo => todo.id !== id);
-        this.setState({todos: incomplete})
+    completeTodo = (id) => {
+        const todos = this.state.todos.map(todo => { if (todo.id === id) todo.completed = !todo.completed; return todo })
+        this.setState({ todos: todos })
     }
     render() {
         return (
@@ -36,7 +36,7 @@ class TodoList extends React.Component {
                     <Todo
                         key={todo.id}
                         todo={todo}
-                        handleClick={this.removeTodo}
+                        handleClick={this.completeTodo}
                     />
                 ))}
             </div>
