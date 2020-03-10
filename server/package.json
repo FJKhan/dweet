@@ -1,0 +1,23 @@
+{
+  "name": "todo-server",
+  "version": "1.0.0",
+  "description": "backend for todo app",
+  "main": "index.js",
+  "author": "F.J. Genus",
+  "license": "Apache 2.0",
+  "private": true,
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.4"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "babel-runtime": "^6.26.0"
+  }
+}
