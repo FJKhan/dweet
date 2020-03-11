@@ -15,10 +15,8 @@ export default class TodosDAO {
     }
 
     static async addTodo(todo) {
-        let result
         try{
-            result = await todos.insertOne(todo)
-            console.log(result)
+            return await todos.insertOne(todo)
         }
         catch(err) {
             console.error(`Could not save todo: ${todo}. Error: ${err.stack}`)
@@ -26,9 +24,8 @@ export default class TodosDAO {
     }
 
     static async getTodos({
-        filters = null, page = 0, todosPerPage = 10
+        query ={}, filters = null, page = 0, todosPerPage = 10
     } = {}) {
-        let query = {owner_id:''} 
         let cursor
         try {
             cursor = await todos.find(query)
@@ -45,6 +42,15 @@ export default class TodosDAO {
         }
         catch(e) {
             console.error(`Unable to convert cursor to array: ${e}`)
+            return { todosList: [] }
+        }
+    }
+
+    static async deleteTodo(id) {
+        try {
+            return await todos.deleteOne({_id: id})
+        } catch (err) {
+            console.error(`error: ${err.stack}`)
             return { todosList: [] }
         }
     }
