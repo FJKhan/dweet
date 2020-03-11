@@ -1,6 +1,6 @@
 import {MongoClient} from 'mongodb'
 
-describe('MongoClient', async() => {
+describe('MongoClient',() => {
     test('Client initialized with URI', async () =>{
         let testClient 
        try { testClient = await MongoClient.connect(process.env.TODO_DB_URI, {
