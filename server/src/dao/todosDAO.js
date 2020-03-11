@@ -14,6 +14,17 @@ export default class TodosDAO {
         }
     }
 
+    static async addTodo(todo) {
+        let result
+        try{
+            result = await todos.insertOne(todo)
+            console.log(result)
+        }
+        catch(err) {
+            console.error(`Could not save todo: ${todo}. Error: ${err.stack}`)
+        }
+    }
+
     static async getTodos({
         filters = null, page = 0, todosPerPage = 10
     } = {}) {
