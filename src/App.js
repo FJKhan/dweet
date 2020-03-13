@@ -1,31 +1,36 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import {fetchTodos } from './actions'
 import './App.css'
 import TodoList from './components/TodoList/TodoList.component'
 import TodoForm from './components/TodoForm/TodoForm.component'
 
-class App extends React.Component {
-    state = {
-        newText: '',
-        todos: [
-            {
-                id: 1,
-                name: 'finish this shit',
-                due: new Date('2020-03-07'),
-                completed: false,
-            },
-            {
-                id: 2,
-                name: 'finish this ugh',
-                due: new Date('2020-03-08'),
-                completed: false,
-            },
-            {
-                id: 3,
-                name: 'finish that shit',
-                due: new Date('2020-03-09'),
-                completed: false,
-            },
-        ],
+export class App extends React.Component {
+    // state = {
+    //     newText: '',
+    //     todos: [
+    //         {
+    //             id: 1,
+    //             name: 'finish this shit',
+    //             due: new Date('2020-03-07'),
+    //             completed: false,
+    //         },
+    //         {
+    //             id: 2,
+    //             name: 'finish this ugh',
+    //             due: new Date('2020-03-08'),
+    //             completed: false,
+    //         },
+    //         {
+    //             id: 3,
+    //             name: 'finish that shit',
+    //             due: new Date('2020-03-09'),
+    //             completed: false,
+    //         },
+    //     ],
+    // }
+    componentDidMount() {
+       this.props.dispatch(fetchTodos())
     }
   addTodo = e => {
       if (e.key === 'Enter') {
@@ -62,12 +67,12 @@ class App extends React.Component {
                         <TodoForm
                             handleKeyPress={this.addTodo}
                             handleInputChange={this.handleInputChange}
-                            value={this.state.newText}
+                            value={this.props.newText}
                         />
                     </div>
                     <div className="w-full flex justify-center">
                         <TodoList
-                            todos={this.state.todos}
+                            todos={this.props.todos}
                             completeTodo={this.completeTodo}
                         />
                     </div>
@@ -77,4 +82,7 @@ class App extends React.Component {
     }
 }
 
-export default App
+const mapStateToProps = state => {
+    return state
+}
+export default connect(mapStateToProps)(App)
