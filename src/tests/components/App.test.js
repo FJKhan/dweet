@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import configureStore from 'redux-mock-store'
 import thunk from 'redux-thunk'
 
-import App from './App'
+import App from '../../App'
 
 
 

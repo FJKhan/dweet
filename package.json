@@ -19,7 +19,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "CI=true react-scripts test",
+    "test:watch": "react-scripts test",
     "eject": "react-scripts eject",
     "build:styles": "postcss src/tailwind.css -o src/styles.css",
     "prebuild": "yarn build:styles",
@@ -42,7 +43,14 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.7.4",
+    "husky": "^4.2.3",
     "postcss-cli": "^7.1.0",
     "redux-mock-store": "^1.5.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn test",
+      "pre-push": "yarn test"
+    }
   }
 }
