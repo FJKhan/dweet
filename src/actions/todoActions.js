@@ -10,12 +10,11 @@ export const VisibilityFilters = {
     SHOW_COMPLETED: 'SHOW_COMPLETED',
     SHOW_ACTIVE: 'SHOW_ACTIVE',
 }
-
+const API_URL='http://localhost:5000/api'
 //fetches todos
 export function fetchTodos() {
     return dispatch => {
-        return axios.get(`http://localhost:5000/api/todos/`).then(response => {
-            console.log(response.data)
+        return axios.get(`${API_URL}/todos/`).then(response => {
             dispatch(getTodos(response.data.todos))
         })
     }
