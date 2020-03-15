@@ -19,7 +19,8 @@ export default class TodosDAO {
             return await todos.insertOne(todo)
         }
         catch(err) {
-            console.error(`Could not save todo: ${todo}. Error: ${err.stack}`)
+            console.error(`Could not save todo: ${todo}. Error: ${err}`)
+            return {error: err}
         }
     }
 
@@ -32,7 +33,7 @@ export default class TodosDAO {
          }
         catch (e) {
             console.error(`error: ${e.stack}`)
-            return { todosList: [] }
+            return { error: e, todosList: [] }
         }
         const displayCursor = cursor.skip(page * todosPerPage)
         .limit(todosPerPage)
@@ -42,7 +43,7 @@ export default class TodosDAO {
         }
         catch(e) {
             console.error(`Unable to convert cursor to array: ${e}`)
-            return { todosList: [] }
+            return { error: e, todosList: [] }
         }
     }
 
@@ -51,7 +52,7 @@ export default class TodosDAO {
             return await todos.deleteOne({_id: id})
         } catch (err) {
             console.error(`error: ${err.stack}`)
-            return { todosList: [] }
+            return { error: err }
         }
     }
 }

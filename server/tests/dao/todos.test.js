@@ -6,7 +6,7 @@ const todo = {
     name: 'Insert a document',
     due: new Date(),
     owner_id: 1,
-    completed: false,
+    completed: false
 }
 let insertedId
 describe('TodoDAO', () => {
