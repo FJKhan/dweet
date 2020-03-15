@@ -1,4 +1,4 @@
-import {GET_TODOS} from '../actions'
+import * as actions from '../actions/types'
 export const defaultState = {
     todos: [],
     newText:''
@@ -6,8 +6,10 @@ export const defaultState = {
 
 const mainReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case GET_TODOS: 
+        case actions.GET_TODOS: 
             return { ...state, todos: action.todos }
+        case actions.ADD_TODO:
+            return { todos:[...state.todos, action.todo]}
         default: return {...state}
     }
 }
