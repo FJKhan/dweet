@@ -34,7 +34,7 @@ function getTodosFailure(e) {
 export function addTodo(todo) {
     return dispatch => {
         return axios.post(`${API_URL}/todos/`, todo).then(response => {
-            todo = Object.assign(todo, {_id: response.insertedId})
+            todo = Object.assign(todo, {_id: response.data.insertedId})
             dispatch(addTodoSucess(todo))
         }).catch(e=>dispatch(addTodoFailure(e))) 
     }

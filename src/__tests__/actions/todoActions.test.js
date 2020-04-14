@@ -56,7 +56,7 @@ describe('Todo Actions', () => {
         const id = '5422d'
         const savedTodo = {...todo, _id: id}
         const expectedAction = [{ type: actions.ADD_TODO_SUCCESS, todo: savedTodo}]
-        mockAxios.post.mockResolvedValueOnce({insertedId: id})
+        mockAxios.post.mockResolvedValueOnce({data: {insertedId: id}})
         await store.dispatch(addTodo(todo))
         expect(store.getActions()).toEqual(expectedAction)
     })
