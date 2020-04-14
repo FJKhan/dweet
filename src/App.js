@@ -1,48 +1,22 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {fetchTodos } from './actions'
+import {addTodo, fetchTodos } from './actions'
 import './App.css'
 import TodoList from './components/TodoList/TodoList.component'
 import TodoForm from './components/TodoForm/TodoForm.component'
 
 export class App extends React.Component {
-    // state = {
-    //     newText: '',
-    //     todos: [
-    //         {
-    //             id: 1,
-    //             name: 'finish this shit',
-    //             due: new Date('2020-03-07'),
-    //             completed: false,
-    //         },
-    //         {
-    //             id: 2,
-    //             name: 'finish this ugh',
-    //             due: new Date('2020-03-08'),
-    //             completed: false,
-    //         },
-    //         {
-    //             id: 3,
-    //             name: 'finish that shit',
-    //             due: new Date('2020-03-09'),
-    //             completed: false,
-    //         },
-    //     ],
-    // }
     componentDidMount() {
        this.props.dispatch(fetchTodos())
     }
   addTodo = e => {
       if (e.key === 'Enter') {
           const todo = {
-              id: this.state.todos.length + 1,
               name: this.state.newText,
               due: new Date(),
-              completed: false,
+              completed: false
           }
-          this.setState(prevState => {
-              return { todos: [...prevState.todos, todo], newText:'' }
-          })
+          this.props.dispatch(addTodo(todo))
       }
     }
     completeTodo = id => {
@@ -71,10 +45,10 @@ export class App extends React.Component {
                         />
                     </div>
                     <div className="w-full flex justify-center">
-                        <TodoList
+                        {this.props.todos && <TodoList
                             todos={this.props.todos}
                             completeTodo={this.completeTodo}
-                        />
+                        />}
                     </div>
                 </div>
             </div>
