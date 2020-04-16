@@ -1,4 +1,3 @@
-export const ADD_TODO = 'ADD_TODO'
 export const ADD_TODO_FAILURE = 'ADD_TODO_FAILURE'
 export const ADD_TODO_SUCCESS = 'ADD_TODO_SUCCESS'
 export const GET_TODOS = 'GET_TODOS'

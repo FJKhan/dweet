@@ -17,6 +17,7 @@ export class App extends React.Component {
               completed: false
           }
           this.props.dispatch(addTodo(todo))
+          this.setState({ newText: '' })
       }
     }
     completeTodo = id => {
