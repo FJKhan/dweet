@@ -1,11 +1,13 @@
 import TodosDAO from '../dao/todosDAO'
-import {ObjectId }from 'bson'
+import {ObjectId} from 'bson'
 export default class TodosController {
     static async apiGetTodos(req, res, next) {
         const TODOS_PER_PAGE = 10
         try {
-            let query = req.params ? { _id: ObjectId(req.params.id) } : {}
-            const { todosList } = await TodosDAO.getTodos({query: query})
+            let query
+            if (req.params.id) query = { _id: ObjectId(req.params.id) }
+            else query = {}
+            const { todosList } = await TodosDAO.getTodos({ query: query })
             let response = {
                 todos: todosList,
                 page: 0,
@@ -42,11 +44,8 @@ export default class TodosController {
 
     static async apiUpdateTodo(req, res) {
         try {
-            console.log(req.params)
-            console.log(req.body)
             const { id } = req.params
             const update = req.body
-            console.log(id, update)
             const todo = await TodosDAO.updateTodo(id, update)
             res.json(todo)
         } catch (e) {
