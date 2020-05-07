@@ -48,12 +48,17 @@ export default class TodosDAO {
         }
     }
 
+    static async getTodoById(id) {
+        try {
+            return await todos.findOne({ _id: ObjectId(id) })
+        } catch (err) {
+            console.error(`error: ${err.stack}`)
+            return { error: err }
+        }
+    }
     static async updateTodo(id, todo) {
         try {
-            return await todos.updateOne(
-                { _id: id },
-                { $set: todo }
-            )
+            return await todos.updateOne({ _id: ObjectId(id) }, { $set: todo })
         } catch (err) {
             console.error(`Could not save todo: ${todo}. Error: ${err}`)
             return { error: err }
