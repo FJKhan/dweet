@@ -35,11 +35,11 @@ describe('TodoDAO', () => {
     })
 
     it('can find a document in a collection', async () => {
-        let result = await (await TodosDAO.getTodoById(insertedId))
+        let result = await (await TodosDAO.getTodos({ query:{ _id:insertedId }})).todosList
         expect(result).not.toBeNull()
-        expect(result.name).toEqual(todo.name)
-        expect(result.owner_id).toEqual(todo.owner_id)
-        expect(result.completed).toEqual(false)
+        expect(result[0].name).toEqual(todo.name)
+        expect(result[0].owner_id).toEqual(todo.owner_id)
+        expect(result[0].completed).toEqual(false)
     })
 
 

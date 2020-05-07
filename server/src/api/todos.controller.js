@@ -5,7 +5,7 @@ export default class TodosController {
         const TODOS_PER_PAGE = 10
         try {
             let query = req.params ? { _id: ObjectId(req.params.id) } : {}
-            const { todosList } = await TodosDAO.getTodos(query)
+            const { todosList } = await TodosDAO.getTodos({query: query})
             let response = {
                 todos: todosList,
                 page: 0,
