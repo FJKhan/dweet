@@ -35,12 +35,23 @@ describe('TodoDAO', () => {
     })
 
     it('can find a document in a collection', async () => {
-        let query = { _id: ObjectId(insertedId) }
-        let result = await (await TodosDAO.getTodos({ query: query })).todosList
+        let result = await (await TodosDAO.getTodoById(insertedId))
         expect(result).not.toBeNull()
-        expect(result[0].name).toEqual(todo.name)
-        expect(result[0].owner_id).toEqual(todo.owner_id)
-        expect(result[0].completed).toEqual(false)
+        expect(result.name).toEqual(todo.name)
+        expect(result.owner_id).toEqual(todo.owner_id)
+        expect(result.completed).toEqual(false)
+    })
+
+
+    it('can update a document in the collection', async () => {
+        const update = { "completed": true }
+        let result = await TodosDAO.updateTodo(insertedId, update)
+        let resultTodo = await await TodosDAO.getTodoById(insertedId)
+        const updatedTodo = Object.assign(resultTodo, update)
+        let { n, ok } = result.result
+        let {modifiedCount, matchedCount} = result
+        expect({ n, ok , modifiedCount, matchedCount}).toEqual({ n: 1, ok: 1, modifiedCount:1, matchedCount:1 })
+        expect(resultTodo).toBe(updatedTodo)
     })
 
     it('can delete a document in the collection', async () => {
