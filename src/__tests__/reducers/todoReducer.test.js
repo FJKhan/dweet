@@ -23,4 +23,9 @@ describe('todo reducer', () => {
         const action = {type: actions.ADD_TODO_SUCCESS, todo: todo}
         expect(todoReducer(todoState, action)).toEqual({todos:[todo]})
     });
+    it('should handle TOGGLE_TODO_SUCCESS', () => {
+        const updatedTodo = Object.assign(todo, {completed:true})
+        const action = { type: actions.TOGGLE_TODO_SUCCESS, todo: updatedTodo }
+        expect(todoReducer(todoState, action)).toEqual({todos:[updatedTodo]})
+    })
 });
