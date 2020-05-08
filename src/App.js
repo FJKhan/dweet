@@ -1,16 +1,19 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {addTodo, fetchTodos } from './actions'
+import {addTodo, fetchTodos, toggleTodo } from './actions'
 import './App.css'
 import TodoList from './components/TodoList/TodoList.component'
 import TodoForm from './components/TodoForm/TodoForm.component'
 
 export class App extends React.Component {
+    state = {
+        newText:''
+    }
     componentDidMount() {
        this.props.dispatch(fetchTodos())
     }
   addTodo = e => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && this.state.newText.trim() !== '') {
           const todo = {
               name: this.state.newText,
               due: new Date(),
@@ -20,12 +23,14 @@ export class App extends React.Component {
           this.setState({ newText: '' })
       }
     }
-    completeTodo = id => {
-        const todos = this.state.todos.map(todo => {
-            if (todo.id === id) todo.completed = !todo.completed
-            return todo
+    toggleTodo = id => {
+        this.props.todos.map(todo => {
+            if (todo._id === id) {
+                todo.completed = !todo.completed
+               this.props.dispatch(toggleTodo(todo))
+            }
+            return null
         })
-        this.setState({ todos: todos })
     }
     handleInputChange = e => {
         const text = e.target.value
@@ -42,13 +47,13 @@ export class App extends React.Component {
                         <TodoForm
                             handleKeyPress={this.addTodo}
                             handleInputChange={this.handleInputChange}
-                            value={this.props.newText}
+                            value={this.state.newText}
                         />
                     </div>
                     <div className="w-full flex justify-center">
                         {this.props.todos && <TodoList
                             todos={this.props.todos}
-                            completeTodo={this.completeTodo}
+                            toggleTodo={this.toggleTodo}
                         />}
                     </div>
                 </div>

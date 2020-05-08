@@ -2,7 +2,7 @@ import React from 'react'
 
 const TodoForm = ({value, handleKeyPress, handleInputChange}) => {
     return (
-        <div className="w-1/3 flex flex-wrap align-middle">
+        <div className="w-1/3 flex flex-wrap align-middle px-2">
             <input
                 type="text"
                 placeholder="What needs to be done?"
