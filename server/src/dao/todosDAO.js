@@ -67,6 +67,7 @@ export default class TodosDAO {
 
     static async deleteTodo(id) {
         try {
+            console.log(id)
             return await todos.deleteOne({ _id: ObjectId(id) })
         } catch (err) {
             console.error(`error: ${err.stack}`)

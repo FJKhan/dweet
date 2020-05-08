@@ -16,7 +16,7 @@ export default class TodosController {
             }
             res.json(response)
         } catch (e) {
-            res.status(500).json({ error: e })
+            res.status(500).json(e)
         }
     }
 
@@ -38,7 +38,7 @@ export default class TodosController {
             const { insertedId } = await TodosDAO.addTodo(req.body)
             res.json({ insertedId: insertedId })
         } catch (e) {
-            res.status(500).json({ error: e })
+            res.status(500).json(e)
         }
     }
 
@@ -46,10 +46,24 @@ export default class TodosController {
         try {
             const { id } = req.params
             const update = req.body
-            const todo = await TodosDAO.updateTodo(id, update)
-            res.json(todo)
+            const result = await TodosDAO.updateTodo(id, update)
+            const { n, ok } = result.result
+            const {modifiedCount} = result
+            res.json({n:n, ok:ok, modifiedCount: modifiedCount})
         } catch (e) {
-            res.status(500).json({ error: e })
+            res.status(500).json(e)
+        }
+    }
+
+    static async apiDeleteTodo(req, res) {
+        try {
+            const { id } = req.params
+            const result = await TodosDAO.deleteTodo(id)
+            const { n, ok } = result.result
+            const { deletedCount } = result
+            res.json({ n: n, ok: ok, deletedCount: deletedCount })
+        } catch (e) {
+            res.status(500).json(e)
         }
     }
 }
