@@ -2,11 +2,11 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                mint: '#A7E5BD',
+                mint: '#70C1B3',
                 lilac: '#9BBAF5',
                 'cool-gray': '#CFDEE7',
             },
-        }
+        },
     },
     variants: {},
     plugins: [],

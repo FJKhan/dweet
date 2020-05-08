@@ -1,17 +1,20 @@
 import React from 'react'
-import './Todo.component.css'
 const Todo = ({ todo, handleClick }) => {
     return (
-        <div className="h-10 w-full rounded border-b border-gray-100 flex items-center select-none">
-            <div
-                className="w-full p-2 hover:bg-gray-200"
-                onClick={() => handleClick(todo._id)}
-            >
-                <span className={todo.completed ? `todo-complete` : ``}>
-                    <span className={todo.completed ? `completed` : ``}>
+        <div className="h-10 w-full rounded border-b border-gray-100 flex items-center select-none hover:bg-gray-200">
+            <div className="w-4/5 p-2" onClick={() => handleClick(todo._id)}>
+                <span className={todo.completed ? `line-through text-mint` : ``}>
+                    <span className={todo.completed ? ` text-cool-gray` : ``}>
                         {todo.name}
                     </span>
                 </span>
+            </div>
+            <div className="w-1/5 px-2 text-lilac hover:text-red-500">
+                <span
+                    className="iconify float-right text-current"
+                    data-icon="fa-solid:trash"
+                    data-inline="true"
+                ></span>
             </div>
         </div>
     )
