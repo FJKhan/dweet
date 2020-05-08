@@ -5,6 +5,8 @@ import * as actions from '../../actions/types'
 import {
     fetchTodos,
     addTodo,
+    toggleTodo,
+    deleteTodo
 } from '../../actions/'
 
 const mockStore = configureStore([thunk])
@@ -27,6 +29,9 @@ const todo = {
     due: new Date(),
     completed: false
 }
+const id = '5422d'
+const savedTodo = Object.assign(todo, {_id: id })
+const updatedTodo = Object.assign(savedTodo, { completed: true })
 const error = new Error('error')
  
 describe('Todo Actions', () => {
@@ -52,9 +57,7 @@ describe('Todo Actions', () => {
         await store.dispatch(fetchTodos())
         expect(store.getActions()).toEqual(expectedAction)
     })
-    it('creates ADD_TODO_SUCCESS when addTodo is sucessful', async () => {
-        const id = '5422d'
-        const savedTodo = {...todo, _id: id}
+    it('creates ADD_TODO_SUCCESS when addTodo is sucessful', async () => { 
         const expectedAction = [{ type: actions.ADD_TODO_SUCCESS, todo: savedTodo}]
         mockAxios.post.mockResolvedValueOnce({data: {insertedId: id}})
         await store.dispatch(addTodo(todo))
@@ -68,6 +71,29 @@ describe('Todo Actions', () => {
         expect(store.getActions()).toEqual(expectedAction)
     })
 
+    it('creates TOGGLE_TODO_SUCCESS when toggleTodo is sucessful', async () => {
+        const expectedAction = [
+            { type: actions.TOGGLE_TODO_SUCCESS, todo: updatedTodo },
+        ]
+        mockAxios.post.mockResolvedValueOnce({data: {n: 1, ok:1}})
+        await store.dispatch(toggleTodo(todo))
+        expect(store.getActions()).toEqual(expectedAction)
+    })
 
+    it('creates TOGGLE_TODO_FAILURE when addTodo fails', async () => {
+        const expectedAction = [
+            { type: actions.TOGGLE_TODO_FAILURE, error: error },
+        ]
+        mockAxios.post.mockRejectedValueOnce(error)
+        await store.dispatch(toggleTodo(updatedTodo))
+        expect(store.getActions()).toEqual(expectedAction)
+    })
+
+    it('creates DELETE_TODO_SUCCESS when deleteTod is successfull', async () => {
+        const expectedAction = [{ type: actions.DELETE_TODO_SUCCESS, todo: savedTodo._id }]
+        mockAxios.delete.mockResolvedValueOnce({ data: { n: 1, ok: 1 } })
+        await store.dispatch(deleteTodo(todo._id))
+        expect(store.getActions()).toEqual(expectedAction)
+    })
     
 });

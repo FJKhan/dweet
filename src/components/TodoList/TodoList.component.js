@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Todo from '../Todo/Todo.component'
 
-const TodoList = ({ todos, toggleTodo }) => {
+const TodoList = ({ todos, toggleTodo, deleteTodo }) => {
     return (
         <div className="w-1/3 flex flex-wrap align-middle">
-            {todos && todos.map(todo => (
-                <Todo key={todo._id} todo={todo} handleClick={toggleTodo} />
-            ))}
+            {todos &&
+                todos.map((todo) => (
+                    <Todo key={todo._id} todo={todo} handleClick={toggleTodo} deleteTodo={deleteTodo}/>
+                ))}
         </div>
     )
 }

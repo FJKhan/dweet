@@ -22,10 +22,16 @@ describe('todo reducer', () => {
     it('should handle ADD_TODO_SUCCESS', () => {
         const action = {type: actions.ADD_TODO_SUCCESS, todo: todo}
         expect(todoReducer(todoState, action)).toEqual({todos:[todo]})
-    });
+    })
+
     it('should handle TOGGLE_TODO_SUCCESS', () => {
         const updatedTodo = Object.assign(todo, {completed:true})
         const action = { type: actions.TOGGLE_TODO_SUCCESS, todo: updatedTodo }
         expect(todoReducer(todoState, action)).toEqual({todos:[updatedTodo]})
+    })
+
+    it('should handle DELETE_TODO_SUCCESS', () => {
+        const action = { type: actions.DELETE_TODO_SUCCESS, todo: todo._id }
+        expect(todoReducer(todoState, action)).toEqual({ todos: [] })
     })
 });

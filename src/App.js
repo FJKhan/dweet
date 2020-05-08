@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {addTodo, fetchTodos, toggleTodo } from './actions'
+import {addTodo, fetchTodos, toggleTodo, deleteTodo } from './actions'
 import './App.css'
 import TodoList from './components/TodoList/TodoList.component'
 import TodoForm from './components/TodoForm/TodoForm.component'
@@ -32,6 +32,9 @@ export class App extends React.Component {
             return null
         })
     }
+    deleteTodo = id => {
+        this.props.dispatch(deleteTodo(id))
+    }
     handleInputChange = e => {
         const text = e.target.value
         this.setState({ newText: text })
@@ -54,6 +57,7 @@ export class App extends React.Component {
                         {this.props.todos && <TodoList
                             todos={this.props.todos}
                             toggleTodo={this.toggleTodo}
+                            deleteTodo={this.deleteTodo}
                         />}
                     </div>
                 </div>

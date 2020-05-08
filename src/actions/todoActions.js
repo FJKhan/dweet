@@ -67,3 +67,19 @@ function toggleTodoSuccess(todo) {
 function toggleTodoFailure(e) {
     return { type: actions.TOGGLE_TODO_FAILURE, error: e }
 }
+
+export function deleteTodo(id) {
+    return dispatch => {
+        return axios.delete(`${API_URL}/id/${id}`)
+            .then(response => dispatch(deleteTodoSuccess(id)))
+        .catch(e=> dispatch(deleteTodoFailure(e)))
+   }
+}
+
+function deleteTodoSuccess(id) {
+    return {type:actions.DELETE_TODO_SUCCESS, todo:id}
+}
+
+function deleteTodoFailure(e) {
+    return{type: actions.DELETE_TODO_FAILURE, error:e}
+}
