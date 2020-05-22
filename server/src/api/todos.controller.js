@@ -6,6 +6,7 @@ export default class TodosController {
         try {
             let query
             if (req.params.id) query = { _id: ObjectId(req.params.id) }
+            else if (req.body) query = req.body
             else query = {}
             const { todosList } = await TodosDAO.getTodos({ query: query })
             let response = {
