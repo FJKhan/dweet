@@ -24,7 +24,9 @@
     "eject": "react-scripts eject",
     "build:styles": "postcss src/tailwind.css -o src/styles.css",
     "prebuild": "yarn build:styles",
-    "prestart": "yarn build:styles"
+    "prestart": "yarn build:styles",
+    "cypress": "cypress run",
+    "cypress:dev":"cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -43,14 +45,15 @@
   },
   "devDependencies": {
     "autoprefixer": "^9.7.4",
+    "cypress": "^4.7.0",
     "husky": "^4.2.3",
     "postcss-cli": "^7.1.0",
     "redux-mock-store": "^1.5.4"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn test",
-      "pre-push": "yarn test"
+      "pre-commit": "yarn test && yarn cypress",
+      "pre-push": "yarn test && yarn cypress"
     }
   }
 }

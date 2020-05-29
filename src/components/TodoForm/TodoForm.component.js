@@ -6,7 +6,7 @@ const TodoForm = ({value, handleKeyPress, handleInputChange}) => {
             <input
                 type="text"
                 placeholder="What needs to be done?"
-                className="w-full border-b text-2xl placeholder-gray-300"
+                className="todo-input w-full border-b text-2xl placeholder-gray-300"
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 value={value}
