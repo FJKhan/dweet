@@ -5,6 +5,7 @@ const TodoForm = ({value, handleKeyPress, handleInputChange}) => {
         <div className="w-1/3 flex flex-wrap align-middle px-2">
             <input
                 type="text"
+                autoFocus
                 placeholder="What needs to be done?"
                 className="todo-input w-full border-b text-2xl placeholder-gray-300"
                 onChange={handleInputChange}

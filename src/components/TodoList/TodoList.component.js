@@ -4,7 +4,7 @@ import Todo from '../Todo/Todo.component'
 
 const TodoList = ({ todos, toggleTodo, deleteTodo }) => {
     return (
-        <div className="w-1/3 flex flex-wrap align-middle">
+        <div className="todo-list w-1/3 flex flex-wrap align-middle">
             {todos &&
                 todos.map((todo) => (
                     <Todo key={todo._id} todo={todo} handleClick={toggleTodo} deleteTodo={deleteTodo}/>

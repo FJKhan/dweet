@@ -25,4 +25,5 @@ yarn-error.log*
 server/node_modules/
 
 cypress/videos/*
+cypress/screenshots/*
 cypress/fixtures/example.json

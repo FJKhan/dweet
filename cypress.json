@@ -1,3 +1,7 @@
 {
-    "baseUrl": "http://localhost:8097"
+    "watchForFileChanges": false,
+    "baseUrl": "http://localhost:8097",
+    "env":{
+        "API_URL":"http://localhost:5000/api/todos/"
+    }
 }
