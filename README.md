@@ -15,25 +15,25 @@ Runs the app in the development mode.<br />
 
 ### Running tests
 
-To run app tests:
+#### To run app tests:
 `yarn test`
 
-In watch mode:
+##### In watch mode:
 `test:dev`
 
-To run UI tests:
+#### To run UI tests:
 `yarn cypress`
 
-In watch mode:
+##### In watch mode:
 `yarn cypress:dev`
 
-To run server tests:
+#### To run server tests:
 ```
 cd server
 yarn test
 ```
 
-In watch mode:
+##### In watch mode:
 `test:dev`
 
 
