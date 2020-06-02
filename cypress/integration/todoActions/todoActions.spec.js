@@ -14,15 +14,17 @@ it('should load successfully', () => {
     cy.visit('/')
 })
 describe('todo actions', () => {
+    beforeEach(() => {
+        //Delete any existing todos
+        deleteTodos()
+    })
+    afterEach(() => {
+        //Delete any existing todos
+        deleteTodos()
+    })
     context('with no todos', () => {
         beforeEach(() => {
-            //Delete any existing todos
-            deleteTodos()
             cy.visit('/')
-        })
-        afterEach(() => {
-            //Delete any existing todos
-            deleteTodos()
         })
         it('should render todo form', () => {
             cy.get('.todo-input').should('exist')
@@ -42,10 +44,6 @@ describe('todo actions', () => {
     })
 
     context('with saved todos', () => {
-        afterEach(() => {
-            //Delete any existing todos
-            deleteTodos()
-        })
         it('should load and display existing todos', () => {
             //load and save todos from fixtures
             cy.fixture('todos').each((todo) =>
