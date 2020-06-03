@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon server",
     "test": "jest --passWithNoTests",
-    "test:dev": "jest --passWithNoTests --watch"
+    "test:dev": "jest --watch"
   },
   "dependencies": {
     "chai": "^4.2.0",
@@ -26,15 +26,8 @@
     "@babel/preset-stage-1": "^7.8.3",
     "@babel/register": "^7.8.6",
     "@babel/runtime": "^7.8.7",
-    "husky": "^4.2.3",
     "jest": "^25.1.0",
     "jest-cli": "^25.1.0",
     "jest-express": "^1.11.3"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "yarn test",
-      "pre-push": "yarn test"
-    }
   }
 }
