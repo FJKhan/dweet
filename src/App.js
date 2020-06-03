@@ -67,6 +67,9 @@ export class App extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return state
+    return {
+        todos: state.todos,
+        error: state.error
+    }
 }
 export default connect(mapStateToProps)(App)
