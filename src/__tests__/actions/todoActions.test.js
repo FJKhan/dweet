@@ -89,9 +89,16 @@ describe('Todo Actions', () => {
         expect(store.getActions()).toEqual(expectedAction)
     })
 
-    it('creates DELETE_TODO_SUCCESS when deleteTod is successfull', async () => {
+    it('creates DELETE_TODO_SUCCESS when deleteTodo is successfull', async () => {
         const expectedAction = [{ type: actions.DELETE_TODO_SUCCESS, todo: savedTodo._id }]
         mockAxios.delete.mockResolvedValueOnce({ data: { n: 1, ok: 1 } })
+        await store.dispatch(deleteTodo(todo._id))
+        expect(store.getActions()).toEqual(expectedAction)
+    })
+
+    it('creates DELETE_TODO_FAILURE when deleteTodo fails',async () =>{
+        const expectedAction = [{type: actions.DELETE_TODO_FAILURE, error: error}]
+        mockAxios.delete.mockRejectedValueOnce(error)
         await store.dispatch(deleteTodo(todo._id))
         expect(store.getActions()).toEqual(expectedAction)
     })
