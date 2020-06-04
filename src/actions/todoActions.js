@@ -12,7 +12,10 @@ export function fetchTodos() {
     return dispatch => {
         return axios.get(`${API_URL}`).then(response => {
             dispatch(getTodos(response.data.todos))
-        }).catch(e => dispatch(getTodosFailure(e)))
+        }).catch(e => { 
+            console.log(e)
+            dispatch(getTodosFailure(e))
+        })
     }
 }
 
