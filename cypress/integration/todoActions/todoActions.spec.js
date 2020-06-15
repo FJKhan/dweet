@@ -47,10 +47,7 @@ describe('todo actions', () => {
         })
         it('should load and display existing todos', () => {
             //load and save todos from fixtures
-            cy.fixture('todos').each((todo) =>
-                cy.request('POST', `${Cypress.env('API_URL')}/add`, todo)
-            )
-            cy.visit('/')
+            cy.seedAndVisit()
             cy.get('.todo-list').children().should('have.length', 3)
         })
     })
