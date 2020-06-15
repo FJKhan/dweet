@@ -14,16 +14,10 @@ it('should load successfully', () => {
     cy.visit('/')
 })
 describe('todo actions', () => {
-    beforeEach(() => {
-        //Delete any existing todos
-        deleteTodos()
-    })
-    afterEach(() => {
-        //Delete any existing todos
-        deleteTodos()
-    })
     context('with no todos', () => {
         beforeEach(() => {
+            //Delete any existing todos
+            deleteTodos()
             cy.visit('/')
         })
         it('should render todo form', () => {
@@ -35,15 +29,22 @@ describe('todo actions', () => {
             cy.get('.todo-text').should('not.exist')
         })
         it('should add non-empty todo', () => {
-            const text = 'do something'
-            todoPage.addTodo(text)
-            todoPage.validateInputCleared()
-            todoPage.validateTodoText(1, text)
-            todoPage.validateTodoIncomplete(1)
+            cy.server()
+            cy.route('POST', `${Cypress.env('API_URL')}add`).as('saveTodo')
+            cy.fixture('todos').each((todo, index) => {
+                todoPage.addTodo(todo.name)
+                cy.wait('@saveTodo')
+                todoPage.validateInputCleared()
+                todoPage.validateTodoText(index, todo.name)
+                todoPage.validateTodoIncomplete(index)
+            })
         })
     })
-
     context('with saved todos', () => {
+        beforeEach(() => {
+            //Delete any existing todos
+            deleteTodos()
+        })
         it('should load and display existing todos', () => {
             //load and save todos from fixtures
             cy.fixture('todos').each((todo) =>
