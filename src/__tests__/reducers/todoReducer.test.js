@@ -20,7 +20,7 @@ describe('todo reducer', () => {
 
     it('should handle GET_TODOS', () => {
         expect(
-            todoReducer(todoState, { type: actions.GET_TODOS, todos: [todo] })
+            todoReducer(todoState, { type: actions.GET_TODOS_SUCCESS, todos: [todo] })
         ).toEqual({ todos: [todo], error:null})
     })
     

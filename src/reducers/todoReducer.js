@@ -8,7 +8,7 @@ const todoState = {
 const todoReducer = (state = todoState, action) => {
     let index
     switch (action.type) {
-        case actions.GET_TODOS:
+        case actions.GET_TODOS_SUCCESS:
             return { ...state, todos: action.todos }
         case actions.GET_TODOS_FAILURE:
             return Object.assign({}, state, {error: action.error})
