@@ -53,6 +53,11 @@ export class App extends React.Component {
                             value={this.state.newText}
                         />
                     </div>
+                    <div className="w-1/3 flex align-middle items-center px-2">
+                        <button className="flex-1">All</button>
+                        <button className="flex-1">Active</button>
+                        <button className="flex-1">Completed</button>
+                    </div>
                     <div className="w-full flex justify-center">
                         {this.props.todos && (
                             <TodoList
