@@ -123,7 +123,7 @@ describe('Todo Actions', () => {
         expect(store.getActions()).toEqual(expectedAction)
     })
 
-    it('creates SET_TODO_FILTER when setTodosFilter is successful', async()=>{
+    it('creates SET_TODO_FILTER_SUCCESS when setTodosFilter is successful', async()=>{
         const expectedAction=[{type: actions.SET_TODO_FILTER_SUCCESS, todos: mockResponse.todos, filter: TodosFilters.SHOW_ALL}]
         mockAxios.post.mockResolvedValueOnce({ data: mockResponse })
         await store.dispatch(setTodosFilter(TodosFilters.SHOW_ALL))

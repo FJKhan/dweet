@@ -1,8 +1,10 @@
 import * as actions from '../actions/types'
+import { TodoFilters, TodosFilters } from '../actions/todoActions'
 //default todo state
 const todoState = {
     todos: [],
-    error: null
+    error: null,
+    filter: TodosFilters.SHOW_ALL
 }
 
 const todoReducer = (state = todoState, action) => {
@@ -11,7 +13,7 @@ const todoReducer = (state = todoState, action) => {
         case actions.GET_TODOS_SUCCESS:
             return { ...state, todos: action.todos }
         case actions.GET_TODOS_FAILURE:
-            return Object.assign({}, state, {error: action.error})
+            return Object.assign({}, state, { error: action.error })
         case actions.ADD_TODO_SUCCESS:
             return Object.assign({}, state, {
                 todos: [...state.todos, action.todo]
@@ -35,6 +37,15 @@ const todoReducer = (state = todoState, action) => {
             })
         case actions.DELETE_TODO_FAILURE:
             return Object.assign(state, { error: action.error })
+        case actions.SET_TODO_FILTER_SUCCESS:
+            return Object.assign(
+                {},
+                state,
+                { todos: action.todos },
+                { filter: action.filter }
+            )
+        case actions.SET_TODO_FILTER_FAILURE:
+            return Object.assign({}, state, { error: action.error })
         default:
             return { ...state }
     }
