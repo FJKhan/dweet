@@ -93,9 +93,9 @@ function deleteTodoFailure(e) {
     return { type: actions.DELETE_TODO_FAILURE, error: e }
 }
 
-export function setTodosFilter(filter) {
+export function setTodosFilter(filter, query ={}) {
     return (dispatch) => {
-        return axios.post(`{API_URL}`, filter).then(response => dispatch(setTodosFilterSuccess(response.data.todos, filter)))
+        return axios.post(`${API_URL}`, query).then(response => dispatch(setTodosFilterSuccess(response.data.todos, filter)))
         .catch(e => dispatch(setTodosFilterFailure(e)))
     }
 }

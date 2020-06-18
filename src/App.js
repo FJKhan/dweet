@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo, fetchTodos, toggleTodo, deleteTodo } from './actions'
+import { addTodo, fetchTodos, toggleTodo, deleteTodo, setTodosFilter, TodosFilters } from './actions'
 import './App.css'
 import TodoList from './components/TodoList/TodoList.component'
 import TodoForm from './components/TodoForm/TodoForm.component'
@@ -39,6 +39,20 @@ export class App extends React.Component {
         const text = e.target.value
         this.setState({ newText: text })
     }
+    handleFilterChange = (filter) =>{
+        const filterQuery = this.setFilter(filter)
+        this.props.dispatch(setTodosFilter(filter, filterQuery))
+    }
+    setFilter = (filter) =>{
+        switch(filter){
+            case TodosFilters.SHOW_COMPLETED:
+                return {completed: true}
+            case TodosFilters.SHOW_ACTIVE:
+                return {completed:false}
+            default:
+                return
+        }
+    }
     render() {
         return (
             <div className="h-screen">
@@ -54,9 +68,9 @@ export class App extends React.Component {
                         />
                     </div>
                     <div className="w-1/3 flex align-middle items-center px-2">
-                        <button className="flex-1">All</button>
-                        <button className="flex-1">Active</button>
-                        <button className="flex-1">Completed</button>
+                        <button className="flex-1" onClick={()=> this.handleFilterChange(TodosFilters.SHOW_ALL)}>All</button>
+                        <button className="flex-1" onClick={()=> this.handleFilterChange(TodosFilters.SHOW_ACTIVE)}>Active</button>
+                        <button className="flex-1" onClick={()=> this.handleFilterChange(TodosFilters.SHOW_COMPLETED)}>Completed</button>
                     </div>
                     <div className="w-full flex justify-center">
                         {this.props.todos && (
