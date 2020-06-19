@@ -1,9 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo, fetchTodos, toggleTodo, deleteTodo, setTodosFilter, TodosFilters } from './actions'
+import {
+    addTodo,
+    fetchTodos,
+    toggleTodo,
+    deleteTodo,
+    setTodosFilter,
+    TodosFilters
+} from './actions'
 import './App.css'
 import TodoList from './components/TodoList/TodoList.component'
 import TodoForm from './components/TodoForm/TodoForm.component'
+import FilterButton from './components/FilterButton/FilterButton.component'
 
 export class App extends React.Component {
     state = {
@@ -39,16 +47,16 @@ export class App extends React.Component {
         const text = e.target.value
         this.setState({ newText: text })
     }
-    handleFilterChange = (filter) =>{
+    handleFilterChange = (filter) => {
         const filterQuery = this.setFilter(filter)
         this.props.dispatch(setTodosFilter(filter, filterQuery))
     }
-    setFilter = (filter) =>{
-        switch(filter){
+    setFilter = (filter) => {
+        switch (filter) {
             case TodosFilters.SHOW_COMPLETED:
-                return {completed: true}
+                return { completed: true }
             case TodosFilters.SHOW_ACTIVE:
-                return {completed:false}
+                return { completed: false }
             default:
                 return
         }
@@ -67,10 +75,19 @@ export class App extends React.Component {
                             value={this.state.newText}
                         />
                     </div>
-                    <div className="w-1/3 flex align-middle items-center px-2">
-                        <button className="flex-1" onClick={()=> this.handleFilterChange(TodosFilters.SHOW_ALL)}>All</button>
-                        <button className="flex-1" onClick={()=> this.handleFilterChange(TodosFilters.SHOW_ACTIVE)}>Active</button>
-                        <button className="flex-1" onClick={()=> this.handleFilterChange(TodosFilters.SHOW_COMPLETED)}>Completed</button>
+                    <div className="w-1/3 flex align-middle items-center px-2 py-4">
+                        <FilterButton
+                            filter={TodosFilters.SHOW_ALL}
+                            text="All"
+                        />
+                        <FilterButton
+                            filter={TodosFilters.SHOW_ACTIVE}
+                            text="Active"
+                        />
+                        <FilterButton
+                            filter={TodosFilters.SHOW_COMPLETED}
+                            text="Completed"
+                        />
                     </div>
                     <div className="w-full flex justify-center">
                         {this.props.todos && (
@@ -85,7 +102,10 @@ export class App extends React.Component {
                 {this.props.error && (
                     <div className="w-full flex justify-center items-center fixed bottom-0">
                         <div className="error w-1/3 p-2 mb-4 rounded rounded-sm border border-red-400 bg-red-200 text-red-600">
-                            <span>{this.props.error.toString() || 'Error occurred'}</span>
+                            <span>
+                                {this.props.error.toString() ||
+                                    'Error occurred'}
+                            </span>
                         </div>
                     </div>
                 )}
@@ -97,7 +117,8 @@ export class App extends React.Component {
 const mapStateToProps = (state) => {
     return {
         todos: state.todos,
-        error: state.error
+        error: state.error,
+        filter: state.filter
     }
 }
 export default connect(mapStateToProps)(App)

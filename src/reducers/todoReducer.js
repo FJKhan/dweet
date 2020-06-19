@@ -1,5 +1,5 @@
 import * as actions from '../actions/types'
-import { TodoFilters, TodosFilters } from '../actions/todoActions'
+import {TodosFilters} from '../actions/todoActions'
 //default todo state
 const todoState = {
     todos: [],
