@@ -5,7 +5,7 @@ const Todo = ({ todo, handleClick, deleteTodo }) => {
             <div className="w-4/5 p-2" onClick={() => handleClick(todo._id)}>
                 <span
                     className={todo.completed ? ` todo-text line-through text-mint` : `todo-text`}>
-                    <span className={todo.completed ? `todo-text text-cool-gray` : ``}>
+                    <span className={todo.completed ? `text-cool-gray` : ``}>
                         {todo.name}
                     </span>
                 </span>

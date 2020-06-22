@@ -3,21 +3,13 @@
 import { TodoPage } from '../pages/todoPage'
 
 const todoPage = new TodoPage()
-const deleteTodos = () => {
-    cy.request('GET', Cypress.env('API_URL'))
-        .its('body.todos')
-        .each((todo) =>
-            cy.request('DELETE', `${Cypress.env('API_URL')}/id/${todo._id}`)
-        )
-}
 it('should load successfully', () => {
     cy.visit('/')
 })
 describe('todo actions', () => {
     context('with no todos', () => {
         beforeEach(() => {
-            //Delete any existing todos
-            deleteTodos()
+            cy.deleteTodos()
             cy.visit('/')
         })
         it('should render todo form', () => {
@@ -42,8 +34,7 @@ describe('todo actions', () => {
     })
     context('with saved todos', () => {
         beforeEach(() => {
-            //Delete any existing todos
-            deleteTodos()
+            cy.deleteTodos()
         })
         it('should load and display existing todos', () => {
             //load and save todos from fixtures

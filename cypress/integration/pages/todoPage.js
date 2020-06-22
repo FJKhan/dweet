@@ -15,9 +15,9 @@ export class TodoPage {
         cy.get(`.todo`).eq(index).should('have.text', text)
     }
     validateTodoIncomplete =(index)=>{
-        cy.get(`.todo`).eq(index).should('not.have.class', 'completed')
+        cy.get(`.todo`).eq(index).find('.todo-text').should('not.have.class', 'line-through text-mint')
     }
     validateTodoComplete =(index)=>{
-        cy.get(`.todo`).eq(index).should('have.class', 'completed')
+        cy.get(`.todo`).eq(index).find('.todo-text').should('have.class', 'line-through text-mint')
     }
 }
