@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
 import Todo from '../Todo/Todo.component'
 
 const TodoList = ({ todos, toggleTodo, deleteTodo }) => {
@@ -16,4 +17,7 @@ TodoList.propTypes = {
     toggleTodo: PropTypes.func.isRequired,
     todos: PropTypes.array
 }
-export default TodoList
+const mapStateToProps = ({todos} )=>({
+    todos
+})
+export default connect(mapStateToProps)(TodoList)

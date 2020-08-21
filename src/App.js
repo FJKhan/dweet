@@ -90,18 +90,15 @@ export class App extends React.Component {
                         />
                     </div>
                     <div className="w-full flex justify-center">
-                        {this.props.todos && (
                             <TodoList
-                                todos={this.props.todos}
                                 toggleTodo={this.toggleTodo}
                                 deleteTodo={this.deleteTodo}
                             />
-                        )}
                     </div>
                 </div>
                 {this.props.error && (
                     <div className="w-full flex justify-center items-center fixed bottom-0">
-                        <div className="error w-1/3 p-2 mb-4 rounded rounded-sm border border-red-400 bg-red-200 text-red-600">
+                        <div className="error w-1/3 p-2 mb-4 rounded-sm border border-red-400 bg-red-200 text-red-600">
                             <span>
                                 {this.props.error.toString() ||
                                     'Error occurred'}
@@ -114,11 +111,8 @@ export class App extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        todos: state.todos,
-        error: state.error,
-        filter: state.filter
-    }
-}
+const mapStateToProps = ({error, filter}) => ({
+    error: error,
+    filter: filter
+})
 export default connect(mapStateToProps)(App)
