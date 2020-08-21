@@ -26,3 +26,5 @@ server/node_modules/
 
 cypress/videos/*
 cypress/screenshots/*
+server/nohup.out
+src/styles.css
