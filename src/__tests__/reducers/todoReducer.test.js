@@ -55,9 +55,7 @@ describe('todo reducer', () => {
     it('should handle TOGGLE_TODO_SUCCESS', () => {
         const updatedTodo = Object.assign(todo, { completed: true })
         const action = { type: actions.TOGGLE_TODO_SUCCESS, todo: updatedTodo }
-        expect(todoReducer(todoState, action)).toEqual(
-            Object.assign({}, todoState, { todos:[updatedTodo] })
-        )
+        expect(todoReducer(todoState, action)).toEqual({todos:[updatedTodo], ...todoState})
     })
 
     it('should handle DELETE_TODO_FAILURE', () => {

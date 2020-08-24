@@ -31,6 +31,34 @@ describe('todo actions', () => {
                 todoPage.validateTodoIncomplete(index)
             })
         })
+        it('should toggle todo', ()=>{
+            cy.server()
+            cy.route('POST', `${Cypress.env('API_URL')}add`).as('saveTodo')
+            cy.fixture('todos').then(todos =>{
+                const target = Cypress._.head(todos)
+                todoPage.addTodo(target.name)
+                cy.wait('@saveTodo')
+                todoPage.validateInputCleared()
+                todoPage.validateTodoText(0, target.name)
+                todoPage.validateTodoIncomplete(0)
+                todoPage.toggleTodo(0)
+                todoPage.validateTodoComplete(0)
+            })
+        })
+        it('should delete todo', ()=>{
+            cy.server()
+            cy.route('POST', `${Cypress.env('API_URL')}add`).as('saveTodo')
+            cy.fixture('todos').then(todos =>{
+                const target = Cypress._.head(todos)
+                todoPage.addTodo(target.name)
+                cy.wait('@saveTodo')
+                todoPage.validateInputCleared()
+                todoPage.validateTodoText(0, target.name)
+                todoPage.validateTodoIncomplete(0)
+                todoPage.deleteTodo(0)
+                todoPage.validateTodoDeleted(0)
+            })
+        })
     })
     context('with saved todos', () => {
         beforeEach(() => {

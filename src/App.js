@@ -1,13 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {
-    addTodo,
-    fetchTodos,
-    toggleTodo,
-    deleteTodo,
-    setTodosFilter,
-    TodosFilters
-} from './actions'
+import { addTodo, fetchTodos, TodosFilters } from './actions'
 import './App.css'
 import TodoList from './components/TodoList/TodoList.component'
 import TodoForm from './components/TodoForm/TodoForm.component'
@@ -17,49 +10,23 @@ export class App extends React.Component {
     state = {
         newText: ''
     }
-    componentDidMount() {
-        this.props.dispatch(fetchTodos())
-    }
-    addTodo = (e) => {
+    handleAddTodo = (e) => {
         if (e.key === 'Enter' && this.state.newText.trim() !== '') {
             const todo = {
                 name: this.state.newText,
                 due: new Date(),
                 completed: false
             }
-            this.props.dispatch(addTodo(todo))
+            this.props.addTodo(todo)
             this.setState({ newText: '' })
         }
-    }
-    toggleTodo = (id) => {
-        this.props.todos.map((todo) => {
-            if (todo._id === id) {
-                todo.completed = !todo.completed
-                this.props.dispatch(toggleTodo(todo))
-            }
-            return null
-        })
-    }
-    deleteTodo = (id) => {
-        this.props.dispatch(deleteTodo(id))
     }
     handleInputChange = (e) => {
         const text = e.target.value
         this.setState({ newText: text })
     }
-    handleFilterChange = (filter) => {
-        const filterQuery = this.setFilter(filter)
-        this.props.dispatch(setTodosFilter(filter, filterQuery))
-    }
-    setFilter = (filter) => {
-        switch (filter) {
-            case TodosFilters.SHOW_COMPLETED:
-                return { completed: true }
-            case TodosFilters.SHOW_ACTIVE:
-                return { completed: false }
-            default:
-                return
-        }
+    componentDidMount () {
+        this.props.fetchTodos()
     }
     render() {
         return (
@@ -70,7 +37,7 @@ export class App extends React.Component {
                 <div className="flex flex-wrap justify-center pt-10">
                     <div className="w-full mt-4 mb-8 flex justify-center">
                         <TodoForm
-                            handleKeyPress={this.addTodo}
+                            handleKeyPress={this.handleAddTodo}
                             handleInputChange={this.handleInputChange}
                             value={this.state.newText}
                         />
@@ -90,10 +57,7 @@ export class App extends React.Component {
                         />
                     </div>
                     <div className="w-full flex justify-center">
-                            <TodoList
-                                toggleTodo={this.toggleTodo}
-                                deleteTodo={this.deleteTodo}
-                            />
+                        <TodoList />
                     </div>
                 </div>
                 {this.props.error && (
@@ -111,8 +75,11 @@ export class App extends React.Component {
     }
 }
 
-const mapStateToProps = ({error, filter}) => ({
-    error: error,
-    filter: filter
+const mapStateToProps = ({ error }) => ({
+    error: error
 })
-export default connect(mapStateToProps)(App)
+const mapDispatchToProps = (dispatch) => ({
+    addTodo: (todo) => dispatch(addTodo(todo)),
+    fetchTodos: () => dispatch(fetchTodos())
+})
+export default connect(mapStateToProps, mapDispatchToProps)(App)

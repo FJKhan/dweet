@@ -2,8 +2,8 @@ export class TodoPage {
     addTodo = (text) => {
         cy.get('.todo-input').type(`${text}{enter}`)
     }
-    deleteTodo = () =>{
-        cy.get(`.todo`).eq(index)
+    deleteTodo = (index) =>{
+        cy.get(`.todo`).eq(index).find(`.delete-icon`).click()
     }
     toggleTodo = (index) =>{
         cy.get(`.todo`).eq(index).click()
@@ -19,5 +19,8 @@ export class TodoPage {
     }
     validateTodoComplete =(index)=>{
         cy.get(`.todo`).eq(index).find('.todo-text').should('have.class', 'line-through text-mint')
+    }
+    validateTodoDeleted = (index) =>{
+        cy.get(`.todo`).eq(index).should('not.exist')
     }
 }

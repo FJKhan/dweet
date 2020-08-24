@@ -1,5 +1,5 @@
 import * as actions from '../actions/types'
-import {TodosFilters} from '../actions/todoActions'
+import { TodosFilters } from '../actions/todoActions'
 //default todo state
 const todoState = {
     todos: [],
@@ -13,39 +13,31 @@ const todoReducer = (state = todoState, action) => {
         case actions.GET_TODOS_SUCCESS:
             return { ...state, todos: action.todos }
         case actions.GET_TODOS_FAILURE:
-            return Object.assign({}, state, { error: action.error })
+            return { ...state, error: action.error }
         case actions.ADD_TODO_SUCCESS:
-            return Object.assign({}, state, {
-                todos: [...state.todos, action.todo]
-            })
+            return { ...state, todos: [...state.todos, action.todo] }
         case actions.ADD_TODO_FAILURE:
-            return Object.assign({}, state, { error: action.error })
+            return { ...state, error: action.error }
         case actions.TOGGLE_TODO_SUCCESS:
-            let newTodos = state.todos
-            index = newTodos.findIndex((i) => i._id === action.todo._id)
-            newTodos.splice(index, 1, action.todo)
-            return Object.assign({}, state, { todos: [...newTodos] })
+            return {...state,  todos: state.todos.map(todo => {
+                if(todo._id !== action.todo._id) {
+                    return todo
+                }
+                return {...todo, ...action.todo}
+            })}
         case actions.TOGGLE_TODO_FAILURE:
-            return Object.assign({}, state, { error: action.error })
+            return { ...state, error: action.error }
         case actions.DELETE_TODO_SUCCESS:
-            index = state.todos.findIndex((i) => i._id === action.todo)
-            return Object.assign(state, {
-                todos: [
-                    ...state.todos.slice(0, index),
-                    ...state.todos.slice(index + 1)
-                ]
-            })
+            return {
+                ...state,
+                todos: state.todos.filter((i) => i._id !== action.todo)
+            }
         case actions.DELETE_TODO_FAILURE:
-            return Object.assign(state, { error: action.error })
+            return { ...state, error: action.error }
         case actions.SET_TODO_FILTER_SUCCESS:
-            return Object.assign(
-                {},
-                state,
-                { todos: action.todos },
-                { filter: action.filter }
-            )
+            return { ...state, todos: action.todos, filter: action.filter }
         case actions.SET_TODO_FILTER_FAILURE:
-            return Object.assign({}, state, { error: action.error })
+            return { ...state, error: action.error }
         default:
             return { ...state }
     }
